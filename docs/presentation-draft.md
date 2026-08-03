@@ -53,16 +53,19 @@ Contract → Evidence → Judgment
 ## Slide 04 — Architecture / Tech Stack
 
 ```
-User → Next.js UI → Validate / Fixture → Judgment record
-         (외부 LLM 없음)
+User → Next.js UI → Validator → Evidence / Judgment
+                      ↓
+         Local rules engine (no LLM)
 ```
 
+- **Validator = Local rules engine (no LLM)**  
+  (`lib/validate.ts` 필수값·Approve 차단 규칙)
 - Next.js · TypeScript · Tailwind · Vercel  
 - i18n: 한국어 / 日本語 / EN  
 - SPEC.md 기반 Vertical Slice
 
 **말할 말 (40초)**  
-“구조는 단순합니다. 브라우저에서 계약과 근거를 보고, 로컬 규칙으로 검증한 뒤 판단을 기록합니다. 배포는 Vercel입니다.”
+“검증은 외부 LLM이 아닙니다. Validator는 로컬 규칙 엔진이고, 키 없이도 데모됩니다. 브라우저에서 계약과 근거를 본 뒤 사람이 최종 판단합니다.”
 
 ---
 
