@@ -141,6 +141,7 @@ npm start
 | 파일 | 설명 |
 |------|------|
 | [SPEC.md](SPEC.md) | 제출용 기술명세 |
+| [docs/mvp-status-review.md](docs/mvp-status-review.md) | **MVP 현황 스냅샷 + PPTX 리뷰** |
 | [docs/presentation-draft.md](docs/presentation-draft.md) | 발표자료 초안 (7장) |
 | [docs/gamma-prompt.md](docs/gamma-prompt.md) | **Gamma 붙여넣기 프롬프트** |
 | [docs/debugging-report.md](docs/debugging-report.md) | 디버깅 리포트 (BUG-001 입력 포커스) |
