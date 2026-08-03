@@ -271,10 +271,14 @@ npm run build
 
 ## 16. 후속 (본 MVP 밖)
 
-- 실 Agent Adapter 연동  
-- Gateway Policy 엔진 고도화  
-- Audit / Export 운영 기능  
-- 인증·권한  
+우선순위: **거버넌스 먼저** (최종 Approve는 인간 유지).
+
+1. Gateway Policy (allow / hold / deny) — Judgment 전 시스템 권고  
+2. Audit / Export — 판단·근거 재열람  
+3. 실 Agent Adapter — Fixture Mock 대체  
+4. 인증·권한 — 운영 단계  
+
+불변: 자동 최종 승인 없음 · Conflict/Unknown 동등 노출 · 외부 LLM 기본 미사용. 
 
 ---
 

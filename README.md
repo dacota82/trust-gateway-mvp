@@ -115,10 +115,16 @@ npm start
 
 ## 9. 향후 발전 방향
 
-- 실 Agent Adapter 연동
-- Gateway Policy(allow/hold/deny) 고도화
-- Audit / Export
-- 인증·권한 (제출 MVP 범위 밖)
+방향은 **거버넌스 강화**를 우선합니다. 최종 Approve는 계속 사람만 합니다.
+
+| 단계 | 항목 | 왜 다음인가 |
+|------|------|-------------|
+| **1** | Gateway Policy (allow / hold / deny) | Judgment 전에 시스템 **권고**만 제시. 사람 결정과 분리해 책임을 더 분명하게 |
+| **2** | Audit / Export | 판단·근거 요약을 다시 열어볼 수 있게. 발표·검토·인수인계에 필요 |
+| **3** | 실 Agent Adapter | Fixture Mock을 실제 Agent 입력으로 교체 (연동은 그다음) |
+| **후속** | 인증·권한 | 누가 판단했는지 구분. 운영 단계 |
+
+**불변 원칙:** 자동 최종 승인 없음 · Conflict/Unknown 동등 노출 · 민감정보·외부 LLM 기본 미사용.
 
 ---
 

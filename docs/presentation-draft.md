@@ -96,12 +96,14 @@ User → Next.js UI → Validate / Fixture → Judgment record
 
 ## Slide 07 — 향후 발전
 
-- 실 Agent Adapter 연동  
-- Gateway Policy 고도화  
-- Audit / Export · 인증  
+거버넌스 우선 (사람 최종 승인 유지)
+
+1. Gateway Policy — 시스템 권고 (allow/hold/deny)  
+2. Audit / Export — 판단 기록 재열람  
+3. 그다음 Agent 연동 · 인증
 
 **말할 말 (20초)**  
-“다음으로는 실제 Agent 연동과 감사 기록을 붙이되, 사람 최종 승인 원칙은 유지하겠습니다. 감사합니다.”
+“다음 단계는 Agent를 바로 붙이기보다, Policy와 Audit으로 거버넌스를 먼저 굳히겠습니다. 최종 승인은 계속 사람의 몫입니다. 감사합니다.”
 
 ---
 
