@@ -1,19 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #18181b;
+  --background: #faf9fd;
+  --foreground: #1a1b1e;
+  --surface: #faf9fd;
+  --on-surface: #1a1b1e;
+  --on-surface-variant: #414754;
+  --outline: #727785;
+  --outline-variant: #c1c6d6;
+  --primary: #005bbf;
+  --primary-container: #1a73e8;
+  --on-primary: #ffffff;
+  --surface-container: #efedf1;
+  --surface-container-high: #e9e7eb;
+  --surface-container-lowest: #ffffff;
+  --secondary: #006e2b;
+  --secondary-container: #93f59e;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --tertiary: #8f4d00;
+  --tertiary-container: #ffdcc2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-primary: var(--primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary: var(--on-primary);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-secondary: var(--secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-error: var(--error);
+  --color-error-container: var(--error-container);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --font-sans: var(--font-inter);
+  --radius-lg: 0.5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background: var(--surface);
+  color: var(--on-surface);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
