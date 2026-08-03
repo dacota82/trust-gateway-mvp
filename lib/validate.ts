@@ -1,23 +1,24 @@
 import type { Contract, EvidencePack } from "./types";
+import type { ValidationErrorCode } from "./i18n";
 
 export interface ValidationResult {
   ok: boolean;
-  errors: string[];
+  errorCodes: ValidationErrorCode[];
 }
 
 export function validateContract(contract: Contract): ValidationResult {
-  const errors: string[] = [];
+  const errorCodes: ValidationErrorCode[] = [];
 
-  if (!contract.title.trim()) errors.push("제목(title)이 필요합니다.");
-  if (!contract.objective.trim()) errors.push("목적(objective)이 필요합니다.");
+  if (!contract.title.trim()) errorCodes.push("titleRequired");
+  if (!contract.objective.trim()) errorCodes.push("objectiveRequired");
   if (contract.constraints.filter((c) => c.trim()).length < 1) {
-    errors.push("제약(constraints)을 1개 이상 입력하세요.");
+    errorCodes.push("constraintsRequired");
   }
   if (contract.acceptanceCriteria.filter((c) => c.trim()).length < 1) {
-    errors.push("수용 기준(acceptanceCriteria)을 1개 이상 입력하세요.");
+    errorCodes.push("acceptanceRequired");
   }
 
-  return { ok: errors.length === 0, errors };
+  return { ok: errorCodes.length === 0, errorCodes };
 }
 
 /** Approve는 Contract valid + Evidence overall !== fail 일 때만 허용 */

@@ -42,12 +42,14 @@
   --color-error-container: var(--error-container);
   --color-tertiary: var(--tertiary);
   --color-tertiary-container: var(--tertiary-container);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-noto-kr), var(--font-noto-jp), var(--font-inter), ui-sans-serif, system-ui,
+    sans-serif;
   --radius-lg: 0.5rem;
 }
 
 body {
   background: var(--surface);
   color: var(--on-surface);
-  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-noto-kr), var(--font-noto-jp), var(--font-inter),
+    ui-sans-serif, system-ui, sans-serif;
 }
