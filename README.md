@@ -28,6 +28,11 @@ npm run build
 npm start
 ```
 
+## Repository
+
+- GitHub: https://github.com/dacota82/trust-gateway-mvp
+- Vercel: (다음 단계)
+
 ## 문서
 
 | 파일 | 설명 |
@@ -45,6 +50,6 @@ npm start
 
 ## 다음 단계
 
-1. ~~제품 결정 3건~~ · ~~Next.js Setup~~ · GitHub
+1. ~~제품 결정 3건~~ · ~~Next.js Setup~~ · ~~GitHub~~
 2. Vercel Production 배포
 3. README 포트폴리오 보강 · 발표자료
