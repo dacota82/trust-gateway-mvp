@@ -133,6 +133,89 @@ function LocaleSwitch({
   );
 }
 
+function Shell({
+  children,
+  brand,
+  howItWorks,
+  showHow = true,
+  locale,
+  onLocaleChange,
+}: {
+  children: ReactNode;
+  brand: string;
+  howItWorks: string;
+  showHow?: boolean;
+  locale: Locale;
+  onLocaleChange: (locale: Locale) => void;
+}) {
+  return (
+    <div className="flex min-h-screen flex-col bg-surface text-on-surface">
+      <nav className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
+        <div className="mx-auto flex h-16 max-w-[760px] items-center justify-between gap-3 px-4 md:px-8">
+          <div className="text-lg font-bold tracking-tight text-on-surface uppercase">
+            {brand}
+          </div>
+          <div className="flex items-center gap-3">
+            <LocaleSwitch locale={locale} onChange={onLocaleChange} />
+            {showHow && (
+              <a
+                href="#flow"
+                className="hidden text-sm text-on-surface-variant transition-colors hover:text-primary sm:inline"
+              >
+                {howItWorks}
+              </a>
+            )}
+          </div>
+        </div>
+      </nav>
+      <main className="mx-auto flex w-full max-w-[760px] flex-grow flex-col px-4 py-10 md:px-8">
+        {children}
+      </main>
+    </div>
+  );
+}
+
+function StepProgress({
+  current,
+  labels,
+}: {
+  current: 1 | 2 | 3;
+  labels: [string, string, string];
+}) {
+  const steps = [
+    { n: 1 as const, label: labels[0] },
+    { n: 2 as const, label: labels[1] },
+    { n: 3 as const, label: labels[2] },
+  ];
+  return (
+    <div className="mb-10 flex flex-wrap items-center justify-center gap-2 text-sm">
+      {steps.map((s, i) => {
+        const done = current > s.n;
+        const active = current === s.n;
+        return (
+          <div key={s.label} className="flex items-center gap-2">
+            {i > 0 && <span className="text-outline-variant">—</span>}
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 ${
+                active
+                  ? "bg-primary-container text-on-primary"
+                  : done
+                    ? "bg-surface-container text-on-surface-variant"
+                    : "bg-surface-container-high text-outline"
+              }`}
+            >
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs font-medium">
+                {done ? "✓" : s.n}
+              </span>
+              {s.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function TrustGatewayApp() {
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
   const [step, setStep] = useState<Step>("start");
@@ -250,74 +333,18 @@ export default function TrustGatewayApp() {
     setContract({ ...contract, [key]: next, status: "draft" });
   }
 
-  function Shell({
-    children,
-    showHow,
-  }: {
-    children: ReactNode;
-    showHow?: boolean;
-  }) {
-    return (
-      <div className="flex min-h-screen flex-col bg-surface text-on-surface">
-        <nav className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
-          <div className="mx-auto flex h-16 max-w-[760px] items-center justify-between gap-3 px-4 md:px-8">
-            <div className="text-lg font-bold tracking-tight text-on-surface uppercase">
-              {m.brand}
-            </div>
-            <div className="flex items-center gap-3">
-              <LocaleSwitch locale={locale} onChange={changeLocale} />
-              {showHow !== false && (
-                <a
-                  href="#flow"
-                  className="hidden text-sm text-on-surface-variant transition-colors hover:text-primary sm:inline"
-                >
-                  {m.howItWorks}
-                </a>
-              )}
-            </div>
-          </div>
-        </nav>
-        <main className="mx-auto flex w-full max-w-[760px] flex-grow flex-col px-4 py-10 md:px-8">
-          {children}
-        </main>
-      </div>
-    );
-  }
+  const shellProps = {
+    brand: m.brand,
+    howItWorks: m.howItWorks,
+    locale,
+    onLocaleChange: changeLocale,
+  };
 
-  function StepProgress({ current }: { current: 1 | 2 | 3 }) {
-    const steps = [
-      { n: 1 as const, label: m.stepContract },
-      { n: 2 as const, label: m.stepEvidence },
-      { n: 3 as const, label: m.stepJudgment },
-    ];
-    return (
-      <div className="mb-10 flex flex-wrap items-center justify-center gap-2 text-sm">
-        {steps.map((s, i) => {
-          const done = current > s.n;
-          const active = current === s.n;
-          return (
-            <div key={s.label} className="flex items-center gap-2">
-              {i > 0 && <span className="text-outline-variant">—</span>}
-              <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 ${
-                  active
-                    ? "bg-primary-container text-on-primary"
-                    : done
-                      ? "bg-surface-container text-on-surface-variant"
-                      : "bg-surface-container-high text-outline"
-                }`}
-              >
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs font-medium">
-                  {done ? "✓" : s.n}
-                </span>
-                {s.label}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }
+  const stepLabels: [string, string, string] = [
+    m.stepContract,
+    m.stepEvidence,
+    m.stepJudgment,
+  ];
 
   const statusLabel = (status: EvidenceItemStatus) => {
     if (status === "ok") return m.statusVerified;
@@ -327,7 +354,7 @@ export default function TrustGatewayApp() {
 
   if (step === "start") {
     return (
-      <Shell>
+      <Shell {...shellProps}>
         <section className="flex flex-grow flex-col items-center justify-center py-8 text-center">
           <div className="mb-6 h-1 w-16 rounded-full bg-primary opacity-80" />
           <h1 className="mb-3 max-w-xl text-3xl font-medium tracking-tight text-on-surface md:text-5xl md:leading-[56px]">
@@ -365,7 +392,7 @@ export default function TrustGatewayApp() {
 
   if (step === "contract") {
     return (
-      <Shell>
+      <Shell {...shellProps}>
         <div className="mb-2 flex items-center justify-between text-sm text-on-surface-variant">
           <button
             type="button"
@@ -488,8 +515,8 @@ export default function TrustGatewayApp() {
 
   if (step === "evidence" && evidence) {
     return (
-      <Shell>
-        <StepProgress current={2} />
+      <Shell {...shellProps}>
+        <StepProgress current={2} labels={stepLabels} />
         <p className="mb-2 text-sm font-bold tracking-wide text-primary uppercase">
           {m.evidenceEyebrow}
         </p>
@@ -581,8 +608,8 @@ export default function TrustGatewayApp() {
     ];
 
     return (
-      <Shell>
-        <StepProgress current={3} />
+      <Shell {...shellProps}>
+        <StepProgress current={3} labels={stepLabels} />
         <h1 className="mb-2 text-center text-3xl font-medium tracking-tight text-on-surface">
           {m.judgmentTitle}
         </h1>
@@ -685,7 +712,7 @@ export default function TrustGatewayApp() {
 
   if (step === "done" && judgment) {
     return (
-      <Shell showHow={false}>
+      <Shell {...shellProps} showHow={false}>
         <section className="flex flex-grow flex-col items-center justify-center py-16 text-center">
           <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-secondary-container text-4xl text-secondary">
             ✓
@@ -717,3 +744,4 @@ export default function TrustGatewayApp() {
 
   return null;
 }
+
