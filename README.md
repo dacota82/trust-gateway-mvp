@@ -127,7 +127,8 @@ npm start
 | 파일 | 설명 |
 |------|------|
 | [SPEC.md](SPEC.md) | 제출용 기술명세 |
-| [docs/presentation-draft.md](docs/presentation-draft.md) | **발표자료 초안 (7장)** |
+| [docs/presentation-draft.md](docs/presentation-draft.md) | 발표자료 초안 (7장) |
+| [docs/debugging-report.md](docs/debugging-report.md) | **디버깅 리포트** (BUG-001 입력 포커스) |
 | [docs/00-upstream-docs-review.md](docs/00-upstream-docs-review.md) | 상위 문서 리뷰 |
 | [docs/02-technical-specification-TOC.md](docs/02-technical-specification-TOC.md) | 상세 목차 |
 

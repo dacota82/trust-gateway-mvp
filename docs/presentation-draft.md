@@ -107,12 +107,14 @@ User → Next.js UI → Validate / Fixture → Judgment record
 
 ## 타임박스 (총 ~6분)
 
-| 구간 | 시간 |
+| Slide | 내용 |
 |------|------|
 | 01–04 설명 | ~2분 30초 |
 | 05 Live Demo | ~2분 |
 | 06–07 | ~1분 |
 | 여유/질의 | 나머지 |
+
+> Demo 중 입력 이슈가 있으면 [`debugging-report.md`](debugging-report.md) BUG-001(수정 완료)을 참고.
 
 ## 체크리스트 (발표 전)
 
