@@ -5,6 +5,9 @@ import demo from "@/fixtures/demo-work-order.json";
 import {
   DEFAULT_LOCALE,
   formatStep,
+  isLocale,
+  LOCALE_LABEL,
+  LOCALES,
   messages,
   type Locale,
   type ValidationErrorCode,
@@ -112,28 +115,20 @@ function LocaleSwitch({
       role="group"
       aria-label="Language"
     >
-      <button
-        type="button"
-        onClick={() => onChange("ko")}
-        className={`px-2.5 py-1.5 transition ${
-          locale === "ko"
-            ? "bg-primary-container text-on-primary"
-            : "bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container"
-        }`}
-      >
-        한국어
-      </button>
-      <button
-        type="button"
-        onClick={() => onChange("ja")}
-        className={`px-2.5 py-1.5 transition ${
-          locale === "ja"
-            ? "bg-primary-container text-on-primary"
-            : "bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container"
-        }`}
-      >
-        日本語
-      </button>
+      {LOCALES.map((code) => (
+        <button
+          key={code}
+          type="button"
+          onClick={() => onChange(code)}
+          className={`px-2.5 py-1.5 transition ${
+            locale === code
+              ? "bg-primary-container text-on-primary"
+              : "bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container"
+          }`}
+        >
+          {LOCALE_LABEL[code]}
+        </button>
+      ))}
     </div>
   );
 }
@@ -155,7 +150,7 @@ export default function TrustGatewayApp() {
 
   useEffect(() => {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === "ko" || saved === "ja") {
+    if (isLocale(saved)) {
       setLocale(saved);
       setContract(buildDemoContract(saved));
     }

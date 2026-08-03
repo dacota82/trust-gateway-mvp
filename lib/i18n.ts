@@ -1,13 +1,18 @@
-export type Locale = "ko" | "ja";
+export type Locale = "ko" | "ja" | "en";
 
-export const LOCALES: Locale[] = ["ko", "ja"];
+export const LOCALES: Locale[] = ["ko", "ja", "en"];
 
 export const LOCALE_LABEL: Record<Locale, string> = {
   ko: "한국어",
   ja: "日本語",
+  en: "EN",
 };
 
 export const DEFAULT_LOCALE: Locale = "ko";
+
+export function isLocale(value: string | null): value is Locale {
+  return value === "ko" || value === "ja" || value === "en";
+}
 
 export type ValidationErrorCode =
   | "titleRequired"
@@ -18,8 +23,6 @@ export type ValidationErrorCode =
 export type Messages = {
   brand: string;
   howItWorks: string;
-  langKo: string;
-  langJa: string;
   startTitle: string;
   startSubtitle: string;
   createContract: string;
@@ -89,8 +92,6 @@ export const messages: Record<Locale, Messages> = {
   ko: {
     brand: "Trust Gateway",
     howItWorks: "작동 방식",
-    langKo: "한국어",
-    langJa: "日本語",
     startTitle: "AI에게 무엇을 허용할 것인가?",
     startSubtitle:
       "결과를 검토하기 전에 과제, 경계, 필요한 근거를 먼저 정의합니다.",
@@ -115,8 +116,7 @@ export const messages: Record<Locale, Messages> = {
     stepJudgment: "Judgment",
     evidenceEyebrow: "Evidence Review",
     evidenceTitle: "근거 검토",
-    evidenceSubtitle:
-      "검증됨·미지원·충돌·미확인 항목을 확인합니다.",
+    evidenceSubtitle: "검증됨·미지원·충돌·미확인 항목을 확인합니다.",
     overallLabel: "overall",
     claimLabel: "주장",
     sourceLabel: "출처",
@@ -141,8 +141,7 @@ export const messages: Record<Locale, Messages> = {
     rejectHint: "거절 · 재작업 필요",
     judgmentReason: "판단 근거",
     judgmentReasonPh: "최종 결정 이유를 간단히 적어 주세요...",
-    ackLabel:
-      "최종 결정과 책임은 사람 검토자에게 있음을 이해합니다.",
+    ackLabel: "최종 결정과 책임은 사람 검토자에게 있음을 이해합니다.",
     backEvidence: "근거로",
     recordJudgment: "판단 기록",
     doneTitle: "판단이 기록되었습니다",
@@ -154,7 +153,8 @@ export const messages: Record<Locale, Messages> = {
       titleRequired: "제목(title)이 필요합니다.",
       objectiveRequired: "목적(objective)이 필요합니다.",
       constraintsRequired: "제약(constraints)을 1개 이상 입력하세요.",
-      acceptanceRequired: "수용 기준(acceptanceCriteria)을 1개 이상 입력하세요.",
+      acceptanceRequired:
+        "수용 기준(acceptanceCriteria)을 1개 이상 입력하세요.",
     },
     demo: {
       title: "주간 요약 초안 검토",
@@ -186,8 +186,6 @@ export const messages: Record<Locale, Messages> = {
   ja: {
     brand: "Trust Gateway",
     howItWorks: "仕組み",
-    langKo: "한국어",
-    langJa: "日本語",
     startTitle: "AIに何を許すべきか？",
     startSubtitle:
       "結果を確認する前に、タスク・境界・必要な根拠を定義します。",
@@ -197,7 +195,8 @@ export const messages: Record<Locale, Messages> = {
     backStart: "← 開始",
     stepOf: "ステップ {n} / 3",
     contractTitle: "契約の定義",
-    contractSubtitle: "検証を始めるには、目的・制約・受入基準を定義してください。",
+    contractSubtitle:
+      "検証を始めるには、目的・制約・受入基準を定義してください。",
     fieldTitle: "契約タイトル",
     fieldTitlePh: "例: 週次サマリー草案のレビュー",
     fieldObjective: "タスクの目的",
@@ -212,8 +211,7 @@ export const messages: Record<Locale, Messages> = {
     stepJudgment: "Judgment",
     evidenceEyebrow: "Evidence Review",
     evidenceTitle: "根拠の確認",
-    evidenceSubtitle:
-      "検証済み・未支持・衝突・未確認の項目を確認します。",
+    evidenceSubtitle: "検証済み・未支持・衝突・未確認の項目を確認します。",
     overallLabel: "overall",
     claimLabel: "主張",
     sourceLabel: "出典",
@@ -238,8 +236,7 @@ export const messages: Record<Locale, Messages> = {
     rejectHint: "却下 · 再作業が必要",
     judgmentReason: "判断理由",
     judgmentReasonPh: "最終決定の理由を簡潔に記入してください...",
-    ackLabel:
-      "最終決定と責任は人のレビュアーにあることを理解しています。",
+    ackLabel: "最終決定と責任は人のレビュアーにあることを理解しています。",
     backEvidence: "根拠へ戻る",
     recordJudgment: "判断を記録",
     doneTitle: "判断が記録されました",
@@ -281,23 +278,105 @@ export const messages: Record<Locale, Messages> = {
       ],
     },
   },
+  en: {
+    brand: "Trust Gateway",
+    howItWorks: "How it works",
+    startTitle: "What should AI be allowed to do?",
+    startSubtitle:
+      "Define the task, boundaries, and required evidence before reviewing the result.",
+    createContract: "Create Contract",
+    openDemo: "Open Demo Case",
+    flowLabel: "Contract → Evidence → Judgment",
+    backStart: "← Start",
+    stepOf: "Step {n} of 3",
+    contractTitle: "Define the Contract",
+    contractSubtitle:
+      "Define the objective, constraints, and acceptance criteria to start verification.",
+    fieldTitle: "Contract Title",
+    fieldTitlePh: "e.g. Weekly summary draft review",
+    fieldObjective: "Task Purpose",
+    fieldObjectivePh: "Describe the primary objective...",
+    fieldConstraints: "Constraints (Allowed / Boundaries)",
+    fieldAcceptance: "Approval Criteria",
+    validateContract: "Validate Contract →",
+    goJudgmentBlocked: "Go to Judgment (Reject / Hold only)",
+    loadDemo: "Load Demo Fixture",
+    stepContract: "Contract",
+    stepEvidence: "Evidence",
+    stepJudgment: "Judgment",
+    evidenceEyebrow: "Evidence Review",
+    evidenceTitle: "Review the Evidence",
+    evidenceSubtitle:
+      "Check what is verified, unsupported, conflicting, or still unknown.",
+    overallLabel: "overall",
+    claimLabel: "Claim",
+    sourceLabel: "Source",
+    statusVerified: "VERIFIED",
+    statusConflict: "CONFLICT",
+    statusUnknown: "UNKNOWN",
+    backContract: "Back to Contract",
+    proceedJudgment: "Proceed to Judgment →",
+    judgmentTitle: "Make the Final Judgment",
+    judgmentSubtitle:
+      "After reviewing evidence, the final decision belongs to you.",
+    reviewSummary: "Review Summary",
+    contractStatus: "Contract",
+    evidenceOverall: "Evidence overall",
+    evidenceNa: "n/a (blocked path)",
+    approveBlocked:
+      "Approve is fully blocked when the Contract is invalid or Evidence is fail. Only Hold or Reject is allowed.",
+    approve: "Approve",
+    approveHint: "Acceptance criteria are met",
+    hold: "Hold",
+    holdHint: "Hold · more review needed",
+    reject: "Reject",
+    rejectHint: "Reject · rework required",
+    judgmentReason: "Judgment Reason",
+    judgmentReasonPh: "Provide a brief explanation for your final decision...",
+    ackLabel:
+      "I understand that the final decision and responsibility remain with the human reviewer.",
+    backEvidence: "Back to Evidence",
+    recordJudgment: "Record Judgment",
+    doneTitle: "Judgment Recorded",
+    doneSubtitle: "The final decision has been recorded in this Trust Gateway session.",
+    decisionLabel: "Decision",
+    nextCase: "Next Case",
+    statusValid: "valid",
+    errors: {
+      titleRequired: "Title is required.",
+      objectiveRequired: "Objective is required.",
+      constraintsRequired: "Enter at least one constraint.",
+      acceptanceRequired: "Enter at least one acceptance criterion.",
+    },
+    demo: {
+      title: "Weekly summary draft review",
+      objective:
+        "Review a de-identified weekly activity summary fixture and let a human make the final judgment.",
+      constraints: [
+        "Do not include real names, secrets, or personal data.",
+        "Do not call an external LLM.",
+      ],
+      acceptanceCriteria: [
+        "Contract validation passes.",
+        "After reviewing the Evidence Pack, a Human Judgment is recorded.",
+      ],
+      items: [
+        {
+          claim: "The weekly summary draft includes three key progress items.",
+        },
+        {
+          claim:
+            "Last week and this week KPI figures conflict across different sources.",
+          note: "Conflict is shown with the same weight as Unknown.",
+        },
+        {
+          claim: "Next-week priority evidence is not linked yet.",
+          note: "Unknown is shown with the same weight as Conflict.",
+        },
+      ],
+    },
+  },
 };
-
-export function t(
-  locale: Locale,
-  key: Exclude<keyof Messages, "errors" | "demo">,
-): string;
-export function t(locale: Locale, key: "errors", code: ValidationErrorCode): string;
-export function t(
-  locale: Locale,
-  key: Exclude<keyof Messages, "errors" | "demo"> | "errors",
-  code?: ValidationErrorCode,
-): string {
-  const bag = messages[locale];
-  if (key === "errors" && code) return bag.errors[code];
-  const value = bag[key as Exclude<keyof Messages, "errors" | "demo">];
-  return typeof value === "string" ? value : "";
-}
 
 export function formatStep(locale: Locale, n: number): string {
   return messages[locale].stepOf.replace("{n}", String(n));
