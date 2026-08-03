@@ -140,6 +140,7 @@ function Shell({
   showHow = true,
   locale,
   onLocaleChange,
+  onHome,
 }: {
   children: ReactNode;
   brand: string;
@@ -147,14 +148,20 @@ function Shell({
   showHow?: boolean;
   locale: Locale;
   onLocaleChange: (locale: Locale) => void;
+  onHome: () => void;
 }) {
   return (
     <div className="flex min-h-screen flex-col bg-surface text-on-surface">
       <nav className="sticky top-0 z-50 border-b border-outline-variant bg-surface">
         <div className="mx-auto flex h-16 max-w-[760px] items-center justify-between gap-3 px-4 md:px-8">
-          <div className="text-lg font-bold tracking-tight text-on-surface uppercase">
+          <button
+            type="button"
+            onClick={onHome}
+            className="text-lg font-bold tracking-tight text-on-surface uppercase transition-colors hover:text-primary"
+            aria-label="Home"
+          >
             {brand}
-          </div>
+          </button>
           <div className="flex items-center gap-3">
             <LocaleSwitch locale={locale} onChange={onLocaleChange} />
             {showHow && (
@@ -338,6 +345,7 @@ export default function TrustGatewayApp() {
     howItWorks: m.howItWorks,
     locale,
     onLocaleChange: changeLocale,
+    onHome: () => resetSession("start", buildDemoContract(locale)),
   };
 
   const stepLabels: [string, string, string] = [
