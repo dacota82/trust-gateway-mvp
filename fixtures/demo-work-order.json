@@ -1,0 +1,36 @@
+{
+  "workOrderId": "wo-weekly-summary-001",
+  "contract": {
+    "id": "ctr-weekly-summary-001",
+    "title": "주간 요약 초안 검토",
+    "objective": "팀 주간 활동 요약을 비식별 Fixture 기준으로 검토하고, 사람이 최종 판단을 내린다.",
+    "constraints": [
+      "실명·실기밀·개인정보를 포함하지 않는다.",
+      "외부 LLM을 호출하지 않는다."
+    ],
+    "acceptanceCriteria": [
+      "Contract 검증이 통과한다.",
+      "Evidence Pack을 확인한 뒤 Human Judgment가 기록된다."
+    ],
+    "status": "draft"
+  },
+  "evidence": {
+    "workOrderId": "wo-weekly-summary-001",
+    "overall": "conditional",
+    "items": [
+      {
+        "id": "ev-01",
+        "claim": "주간 요약 초안에 핵심 진행 항목 3개가 포함되어 있다.",
+        "source": "fixture://weekly-summary/draft.md",
+        "status": "ok"
+      },
+      {
+        "id": "ev-02",
+        "claim": "다음 주 우선순위 근거 문서가 아직 연결되지 않았다.",
+        "source": "fixture://weekly-summary/priority",
+        "status": "unknown",
+        "note": "Unknown은 Conflict와 동등하게 노출한다."
+      }
+    ]
+  }
+}
