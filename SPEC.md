@@ -3,7 +3,7 @@
 | 항목 | 값 |
 |------|-----|
 | 문서 | `SPEC.md` (구름 바이브코딩 수료 제출용) |
-| 버전 | **v0.2-draft** |
+| 버전 | **v0.3-draft** |
 | 작성일 | 2026-08-03 |
 | 스택 확정 | **Next.js · TypeScript · Tailwind · Vercel** |
 | 상위 기준 | D18 Technical Spec v1.1 (공개용으로 축소) |
@@ -16,20 +16,23 @@
 | 1 | Demo Fixture 주제 | **주간 요약 초안 검토** |
 | 2 | Styling | **Tailwind CSS** (단일) |
 | 3 | 검증 실패 시 Approve | **완전 차단** (Reject / Hold만 가능) |
+| 4 | 게이트 포지션 | **앞단(Egress)+뒷단(Ingress) 비전** · MVP는 **뒷단 Judgment 슬라이스** |
 
 ---
 
 ## 1. 프로젝트 한 줄
 
-**Trust Gateway MVP** — AI/Agent 작업 결과를 사람이 **Contract → Evidence → Judgment** 순으로 검증·승인하는 최소 게이트웨이 웹앱.
+**Trust Gateway MVP** — 민감·책임 있는 내용을 LLM에 넘기거나(앞단), LLM/Agent 결과를 확정하기 전에(뒷단) **Contract → Evidence → Judgment**로 거치는 게이트웨이.  
+**본 제출본 구현 범위:** 뒷단 Ingress 슬라이스 (로컬 규칙 검증 · Fixture Evidence · Human Judgment · 외부 LLM 미호출).
 
 ---
 
 ## 2. 해결하려는 문제
 
-1. Agent 산출물이 곧바로 “승인된 결과”처럼 쓰이면, 계약·근거·판단이 섞여 책임 소재가 흐려진다.
+1. Agent 산출물이 곧바로 “승인된 결과”처럼 쓰이면, 계약·근거·판단이 섞여 책임 소재가 흐려진다. (**뒷단**)
 2. 검증 UI가 대시보드·로그 나열로 커지면, 시연·학습용 MVP에서 **한 건의 Work Order를 끝까지** 보여주기 어렵다.
-3. 외부 LLM에 민감 입력을 넣는 순간 보안·프라이버시 경계가 무너진다. (본 MVP는 **외부 AI 기본 미사용**)
+3. 외부 LLM에 민감 입력을 넣는 순간 보안·프라이버시 경계가 무너진다. (**앞단**)  
+   실무의 문장 다듬기용 LLM 사용은 일반적이나, **보내도 되는지 / 받아들여도 되는지**를 가르는 문이 필요하다. (본 MVP는 **외부 AI 기본 미사용**)
 
 ---
 
@@ -110,21 +113,28 @@
 
 ## 8. 논리 아키텍처
 
+**제품 비전 (두 방향)**
+
+```
+[앞단 Egress]  초안/민감내용 ──(보내도 되나?)──▶ 외부 LLM     … 후속 Policy
+[뒷단 Ingress] LLM/Agent 결과 ──(받아도 되나?)──▶ Human Judgment … 본 MVP
+```
+
+**본 MVP 구현**
+
 ```
 User (Browser)
   ↓
 Next.js Web App (App Router)
   ↓
-UI: Contract → Evidence → Judgment
+UI: Contract → Evidence → Judgment   ← 뒷단 Ingress
   ↓
-Route Handler / Server Action
+Local rules engine (JSON Fixture + validation)   ← Validator, no LLM
   ↓
-Local rules engine (JSON Fixture + validation)
-  ↓  (외부 LLM 기본 호출 없음)
-Result (session 또는 ephemeral store)
+Result (session)
 ```
 
-코스 권장 패턴과 정합. Agent/Tool Registry는 후속.
+코스 권장 패턴과 정합. Agent/Tool Registry·앞단 Egress UI는 후속.
 
 ---
 
@@ -273,12 +283,12 @@ npm run build
 
 우선순위: **거버넌스 먼저** (최종 Approve는 인간 유지).
 
-1. Gateway Policy (allow / hold / deny) — Judgment 전 시스템 권고  
+1. Gateway Policy (allow / hold / deny) — **앞단 Egress** 포함: LLM에 보내도 되는지 권고 + Judgment 전 권고  
 2. Audit / Export — 판단·근거 재열람  
 3. 실 Agent Adapter — Fixture Mock 대체  
 4. 인증·권한 — 운영 단계  
 
-불변: 자동 최종 승인 없음 · Conflict/Unknown 동등 노출 · 외부 LLM 기본 미사용. 
+불변: 자동 최종 승인 없음 · Conflict/Unknown 동등 노출 · 외부 LLM 기본 미사용.
 
 ---
 
@@ -288,6 +298,7 @@ npm run build
 |------|------|------|
 | v0.1-draft | 2026-08-03 | 스택 **Next.js** 확정, Must 3·코스 5종 산출물 정합 SPEC 초안 |
 | v0.2-draft | 2026-08-03 | Fixture=주간 요약 · Tailwind · Approve 완전 차단 확정 |
+| v0.3-draft | 2026-08-03 | 앞단(Egress)+뒷단(Ingress) 비전 명문화 · MVP=뒷단 슬라이스 |
 
 ---
 

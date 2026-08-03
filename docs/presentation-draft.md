@@ -30,8 +30,15 @@ Contract → Evidence → Judgment
 2. 대시보드형 UI는 **이틀 MVP·5분 시연**에 부적합
 3. 외부 LLM 호출 시 **보안·프라이버시** 위험
 
+**게이트 두 방향**
+
+| 앞단 (Egress) | 뒷단 (Ingress) |
+|---------------|----------------|
+| LLM에 **보내도 되는지** | LLM/Agent 결과를 **받아들여도 되는지** |
+| 후속: Policy | **이번 MVP 구현** |
+
 **말할 말 (40초)**  
-“실무에서 AI 초안이 곧바로 ‘확정’처럼 쓰이는 문제를 봤습니다. 그래서 범위를 한 건의 Work Order로 줄이고, 외부 AI는 기본으로 쓰지 않았습니다.”
+“실무에서는 문장 다듬기에 LLM을 씁니다. Trust Gateway는 앞단에서 보내도 되는지, 뒷단에서 받아들여도 되는지를 가르는 문입니다. 이번 제출본은 뒷단 Judgment 슬라이스입니다.”
 
 ---
 
@@ -101,12 +108,12 @@ User → Next.js UI → Validator → Evidence / Judgment
 
 거버넌스 우선 (사람 최종 승인 유지)
 
-1. Gateway Policy — 시스템 권고 (allow/hold/deny)  
+1. Gateway Policy — **앞단 Egress** + 시스템 권고 (allow/hold/deny)  
 2. Audit / Export — 판단 기록 재열람  
 3. 그다음 Agent 연동 · 인증
 
 **말할 말 (20초)**  
-“다음 단계는 Agent를 바로 붙이기보다, Policy와 Audit으로 거버넌스를 먼저 굳히겠습니다. 최종 승인은 계속 사람의 몫입니다. 감사합니다.”
+“다음 단계는 앞단—LLM에 보내도 되는지—Policy를 붙이고, Audit로 기록을 남기겠습니다. 최종 승인은 계속 사람의 몫입니다. 감사합니다.”
 
 ---
 
